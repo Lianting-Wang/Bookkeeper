@@ -1,0 +1,21 @@
+name: Bookkeeper-test
+on: [push, pull_request]
+
+jobs:
+  Backend-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Install
+        working-directory: ./backend
+        run: npm ci
+      - name: Test
+        working-directory: ./backend
+        run: npm test
+      - name: Style check
+        working-directory: ./backend
+        run: npx eslint .
